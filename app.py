@@ -10,11 +10,11 @@ with open("max_len.pkl", "rb") as f:
     MAX_LEN=pickle.load(f)
 def predict_spam(text):
     seq=tokenizer.texts_to_sequences([text])
-    seq=pad_sequences(seq, maxlen=MAX_LEN, padding='post')
+    seq=pad_sequences(seq,maxlen=MAX_LEN,padding='post')
     pred=model.predict(seq)[0][0]
-    label = "🚨 Spam" if pred > 0.5 else "✅ Ham"
+    label="🚨 Spam" if pred > 0.5 else "✅ Ham"
     return f"{label} (probability: {pred:.2f})"
-demo = gr.Interface(
+demo=gr.Interface(
     fn=predict_spam,
     inputs=gr.Textbox(lines=4, placeholder="Enter a message..."),
     outputs="text",
